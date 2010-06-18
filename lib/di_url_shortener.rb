@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/activerecord'
-require 'Base58'
+require 'base58'
 
 require File.join(File.dirname(__FILE__), 'authorization.rb')
 require File.join(File.dirname(__FILE__), 'settings.rb')

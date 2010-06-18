@@ -4,7 +4,7 @@ if File.exists?(config_file)
   db = YAML.load_file(config_file)[ENV['RACK_ENV']]
   url = "#{db['adapter']}://#{db['username']}:#{db['password']}@#{db['host']}/#{db['database']}"
 else
-  url = ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/../di_url_shortener/db/di_url_shortener_#{ENV['RACK_ENV']}.sqlite3"
+  url = ENV['DATABASE_URL'] || "mysql://localhost/url_shortener_test"
 end
 
 #puts "using db url: #{url}"

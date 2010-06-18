@@ -6,6 +6,7 @@ require 'base58'
 require File.join(File.dirname(__FILE__), 'authorization.rb')
 require File.join(File.dirname(__FILE__), 'settings.rb')
 require File.join(File.dirname(__FILE__), 'helpers.rb')
+require File.join(File.dirname(__FILE__), '..', 'config', 'db-connection.rb')
 
 require File.join(File.dirname(__FILE__), '..' , 'models', 'models.rb')
 

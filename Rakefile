@@ -1,2 +1,2 @@
-require 'di_url_shortener'
+require 'lib/di_url_shortener'
 require 'sinatra/activerecord/rake'

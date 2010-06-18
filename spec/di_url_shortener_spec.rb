@@ -95,5 +95,17 @@ describe 'Url Shortener' do
         @short_url.clicks.first.ip_address.should == "127.0.0.1"
       end
     end
+    
+    context "retrieving click statistics" do
+      before(:each) do
+        create_a_url('http://example.com/')
+        10.times { get "/#{@short_url.key}" }
+      end
+      
+      it "should return a hash with the # of clicks" do
+        statistics = JSON.parse((get "/stats/#{@short_url.id}").body)
+        statistics["click_count"].should == 10
+      end
+    end
   end
 end

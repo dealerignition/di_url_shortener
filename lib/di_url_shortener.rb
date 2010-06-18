@@ -20,6 +20,17 @@ post '/' do
   end
 end
 
+get '/stats/:id' do
+  @short_url = ShortUrl.find(params[:id])
+  
+  if @short_url
+    content_type 'application/json'
+    @short_url.stats.to_json
+  else
+    raise Sinatra::NotFound
+  end
+end
+
 get %r{^/([a-zA-Z0-9]+)} do |key|
   if @short_url = ShortUrl.find_by_key(key)
     @short_url.click(request.referrer, request.ip)

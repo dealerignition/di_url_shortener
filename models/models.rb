@@ -21,6 +21,10 @@ class ShortUrl < ActiveRecord::Base
     self.clicks.create(:referrer => referrer, :ip_address => ip_address)
   end
   
+  def stats
+    { :click_count => self.clicks.count }
+  end
+  
   private
   
   def set_shortened_url

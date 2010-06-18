@@ -29,3 +29,9 @@ end
 def invalid_credentials
   encode_credentials('go', 'away')
 end
+
+def create_a_url(url)
+  post '/', {:url => 'http://example.com/'}, {'HTTP_AUTHORIZATION' => valid_credentials}
+  
+  @short_url = ShortUrl.first
+end

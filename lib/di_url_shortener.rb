@@ -22,6 +22,7 @@ end
 
 get %r{^/([a-zA-Z0-9]+)} do |key|
   if @short_url = ShortUrl.find_by_key(key)
+    @short_url.click(request.referrer, request.ip)
     redirect @short_url.url
   else
     raise Sinatra::NotFound

@@ -30,17 +30,14 @@ describe 'Url Shortener' do
       
       it "should add the short url to the database" do
         count = ShortUrl.count
-        post '/', {:url => 'http://example.com/'}, {'HTTP_AUTHORIZATION' => valid_credentials}
+        create_a_url('http://example.com/')
         ShortUrl.count.should == count + 1
       end
     end
     
     context "creating valid urls" do
       before(:each) do
-        url = 'http://example.com/'
-        post '/', {:url => 'http://example.com/'}, {'HTTP_AUTHORIZATION' => valid_credentials}
-        
-        @short_url = ShortUrl.first
+        create_a_url('http://example.com/')
       end
       
       it "should store the correct long url" do
@@ -58,10 +55,7 @@ describe 'Url Shortener' do
     
     context "redirecting urls" do
       before(:each) do
-        url = 'http://example.com/'
-        post '/', {:url => 'http://example.com/'}, {'HTTP_AUTHORIZATION' => valid_credentials}
-        
-        @short_url = ShortUrl.first
+        create_a_url('http://example.com/')
       end
       
       it "should show a not found page (404) if the url cannot be found" do
@@ -73,6 +67,32 @@ describe 'Url Shortener' do
         get "/#{@short_url.key}"
         last_response.should be_redirect
         last_response["Location"].should == @short_url.url
+      end
+    end
+    
+    context "tracking clicks" do
+      before(:each) do
+        create_a_url('http://example.com/')
+      end
+      
+      it "should start with 0 clicks" do
+        @short_url.clicks.count.should == 0
+      end
+      
+      it "should add a click entry" do
+        click_count = @short_url.clicks.count
+        get "/#{@short_url.key}"
+        @short_url.clicks.count.should == click_count + 1
+      end
+      
+      it "should record the request referrer" do
+        get "/#{@short_url.key}"
+        @short_url.clicks.first.referrer.should == "/"
+      end
+      
+      it "should record the request ip address" do
+        get "/#{@short_url.key}"
+        @short_url.clicks.first.ip_address.should == "127.0.0.1"
       end
     end
   end

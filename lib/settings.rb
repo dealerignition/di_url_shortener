@@ -13,7 +13,7 @@ configure :test do
 end
 
 configure :production do
-  DOMAIN = 'http://l.d5i7.net'
+  DOMAIN = 'http://mydea.ly'
   set :login, 'admin'
   set :password, 'secret'
 end

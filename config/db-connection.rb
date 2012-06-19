@@ -1,11 +1,14 @@
-config_file = File.join(File.dirname(__FILE__), 'database.yml')
-if File.exists?(config_file)
-  require 'yaml'
-  db = YAML.load_file(config_file)[ENV['RACK_ENV']]
-  url = "#{db['adapter']}://#{db['username']}:#{db['password']}@#{db['host']}/#{db['database']}"
-else
-  url = ENV['DATABASE_URL'] || "postgres://localhost/mydb"
-end
+require 'active_record'
+require 'uri'
 
-#puts "using db url: #{url}"
-  set :database, url
+db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+
+ActiveRecord::Base.establish_connection(
+  :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+  :host     => db.host,
+  :port     => db.port,
+  :username => db.user,
+  :password => db.password,
+  :database => db.path[1..-1],
+  :encoding => 'utf8'
+)

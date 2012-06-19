@@ -4,7 +4,7 @@ if File.exists?(config_file)
   db = YAML.load_file(config_file)[ENV['RACK_ENV']]
   url = "#{db['adapter']}://#{db['username']}:#{db['password']}@#{db['host']}/#{db['database']}"
 else
-  url = ENV['DATABASE_URL'] || "mysql://localhost/url_shortener_test"
+  url = ENV['DATABASE_URL'] || "postgres://localhost/mydb"
 end
 
 #puts "using db url: #{url}"

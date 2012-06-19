@@ -50,7 +50,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (= 3.0.9)
+  activerecord (<= 3.0.9)
   base58
   heroku
   pg

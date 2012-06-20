@@ -1,8 +1,7 @@
-source 'http://rubygems.org'
-gem 'rack'
-gem 'heroku'
-gem 'sinatra'
-gem 'base58'
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.6'
+
 gem 'pg'
-gem 'activerecord', "<= 3.0.9"
-gem 'sinatra-activerecord'
+gem 'base58'
+gem 'jquery-rails'

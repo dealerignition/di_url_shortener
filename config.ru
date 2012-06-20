@@ -1,6 +1,4 @@
-require File.join(File.dirname(__FILE__), 'lib', 'di_url_shortener.rb')
+# This file is used by Rack-based servers to start the application.
 
-set :env, :production
-disable :run, :reload
-
-run Sinatra::Application
+require ::File.expand_path('../config/environment',  __FILE__)
+run DiUrlShortener::Application

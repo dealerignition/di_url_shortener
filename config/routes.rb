@@ -56,9 +56,9 @@ DiUrlShortener::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  match '/stats/:id' => 'stats#stats'
+  match '/' => 'shorten_url#shorten'
 
-  match '/:username/:admin/' => 'shorten_url#shorten'
+  match '/stats/:id' => 'stats#stats'
 
   match '/:key' => 'redirect#redirect', :constraints => {:key => /[a-zA-Z0-9]+/}
 end

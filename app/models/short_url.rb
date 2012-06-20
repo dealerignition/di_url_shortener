@@ -3,10 +3,10 @@ class ShortUrl < ActiveRecord::Base
   
   has_many :clicks
   
-  after_create :set_shortened_url
+  before_save :set_shortened_url
   
-  def key
-    Base58.encode(self.id)
+  def key(id)
+    Base58.encode(id)
   end
   
   def self.find_by_key(key)
@@ -28,7 +28,7 @@ class ShortUrl < ActiveRecord::Base
   private
   
   def set_shortened_url
-    self.shortened_url = "#{Rails.configuration.domain}/#{key}" if self.id
-    self.save
+    self.id = ShortUrl.all.length + 1
+    self.shortened_url = "#{Rails.configuration.domain}/#{key(self.id)}"
   end
 end

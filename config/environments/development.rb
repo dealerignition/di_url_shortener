@@ -35,5 +35,5 @@ DiUrlShortener::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  Rails.configuration.domain = "http://localhost/"
+  Rails.configuration.domain = "http://localhost"
 end
